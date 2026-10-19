@@ -1,0 +1,135 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: #f1f3f5;
+  color: #222;
+}
+
+/* ---------- Top toolbar ---------- */
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: #1f2933;
+  color: #fff;
+}
+
+.toolbar h1 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#status {
+  font-size: 0.85rem;
+  color: #7ee0a3;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+#status.visible {
+  opacity: 1;
+}
+
+button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  background: #3b82f6;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #2563eb;
+}
+
+/* ---------- Two-section layout ---------- */
+.workspace {
+  flex: 1;
+  display: flex;
+  min-height: 0; 
+}
+
+.pane {
+  flex: 1;
+  min-width: 0;
+  padding: 16px;
+}
+
+.editor-pane {
+  border-right: 1px solid #d0d5da;
+}
+
+#editor {
+  width: 100%;
+  height: 100%;
+  resize: none;
+  padding: 14px;
+  border: 1px solid #c4cad0;
+  border-radius: 8px;
+  font-family: "Courier New", Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  background: #fff;
+}
+
+#editor:focus {
+  outline: 2px solid #3b82f6;
+  border-color: transparent;
+}
+
+.preview-pane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ---------- slide itself ---------- */
+.slide {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 100%;
+  padding: 32px 40px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  overflow: auto;
+}
+
+.slide h1 { margin-top: 0; font-size: 2rem; }
+.slide h2 { font-size: 1.5rem; }
+.slide h3 { font-size: 1.2rem; }
+.slide code {
+  background: #eef0f2;
+  padding: 2px 5px;
+  border-radius: 4px;
+}
+.slide pre {
+  background: #1f2933;
+  color: #f1f3f5;
+  padding: 12px;
+  border-radius: 6px;
+  overflow: auto;
+}
+.slide pre code {
+  background: none;
+  padding: 0;
+}
+.slide img {
+  max-width: 100%;
+}
