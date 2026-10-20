@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Markdown Slides</title>
-  <link rel="stylesheet" href="style.css" />   
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="toolbar">
@@ -16,18 +16,20 @@
   </header>
 
   <main class="workspace">
-    <!-- Section 1: where you write the markdown -->
     <section class="pane editor-pane">
       <textarea id="editor" spellcheck="false" placeholder="Write your markdown here..."></textarea>
     </section>
 
-    <!-- Section 2: live view of the slide -->
     <section class="pane preview-pane">
       <div id="slide" class="slide"></div>
+      <div class="controls">
+        <button id="prevBtn">&larr; Left</button>
+        <span id="counter"></span>
+        <button id="nextBtn">Right &rarr;</button>
+      </div>
     </section>
   </main>
 
-  <!-- Markdown-to-HTML library -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="script.js"></script>
 </body>

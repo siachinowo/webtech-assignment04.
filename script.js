@@ -21,36 +21,53 @@ const editor = document.getElementById("editor");
 const slideEl = document.getElementById("slide");
 const saveBtn = document.getElementById("saveBtn");
 const statusEl = document.getElementById("status");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const counter = document.getElementById("counter");
 
 // ---------- State ----------
 let slides = [];
-let currentIndex = 0; 
+let currentIndex = 0;
 
 // ---------- Core functions ----------
-
 function splitSlides(text) {
   const parts = text
     .split(/^\s*---\s*$/m)
     .map((part) => part.trim())
     .filter((part) => part.length > 0);
 
- 
   return parts.length > 0 ? parts : [""];
 }
 
-
 function renderSlide() {
-  // Keep the index valid if slides were deleted while typing
   if (currentIndex > slides.length - 1) currentIndex = slides.length - 1;
   if (currentIndex < 0) currentIndex = 0;
 
   slideEl.innerHTML = marked.parse(slides[currentIndex]);
-}
 
+  counter.textContent = `${currentIndex + 1} / ${slides.length}`;
+  prevBtn.disabled = currentIndex === 0;
+  nextBtn.disabled = currentIndex === slides.length - 1;
+}
 
 function update() {
   slides = splitSlides(editor.value);
   renderSlide();
+}
+
+// ---------- Navigation ----------
+function prevSlide() {
+  if (currentIndex > 0) {
+    currentIndex--;
+    renderSlide();
+  }
+}
+
+function nextSlide() {
+  if (currentIndex < slides.length - 1) {
+    currentIndex++;
+    renderSlide();
+  }
 }
 
 // ---------- Saving and loading ----------
@@ -76,9 +93,15 @@ function showStatus(message) {
 editor.addEventListener("input", update);
 
 saveBtn.addEventListener("click", saveSlides);
+prevBtn.addEventListener("click", prevSlide);
+nextBtn.addEventListener("click", nextSlide);
 
 document.addEventListener("keydown", (event) => {
-  // Ctrl+S (or Cmd+S on Mac): save instead of opening the browser's save dialog
+  if (document.activeElement !== editor) {
+    if (event.key === "ArrowRight") nextSlide();
+    if (event.key === "ArrowLeft") prevSlide();
+  }
+
   if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
     event.preventDefault();
     saveSlides();
